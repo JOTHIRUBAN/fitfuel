@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipzon Create Account</title>
+    <link rel="Shortcut Icon" type="images" href="./imgs/favicon4.png">
+    <link rel="stylesheet" href="sigin_login.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <h1 class="neon-text">CREATE ACCOUNT</h1>
+    </header>
+    <form action="signin.php" method="post" id="form">
+        
+        <div class="container">
+            <div class="image-container"><img src="img/gettyimages-1295823260-612x612-removebg (1).png" alt="OOPS something went wrong" width="100%"></div>
+            
+            <div>
+                <p>
+                    <label for="name"><b>Your Name</b></label>
+                    <input type="text" id="name" name="name">
+                    <span class="error"></span>
+                </p>
+                <p>
+                    <label for="mobile"><b>Mobile Number</b></label>
+                    <input type="tel" id="mobile" name="mobile">
+                    <span class="error"></span>
+                    
+                </p>
+                <p>
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" id="email" name="email">
+                    <span class="error"></span>
+                   
+                </p>
+                <p>
+                    <label for="password"><b>Password</b></label>
+                    <input type="password" id="password" name="password">
+                    <span class="error">Your password should be8 characters long</span>
+                </p>
+                <p>On enrolling your email and mobile number, you will be receiving messages from us</p>
+                <button type="submit" id="sub">Create account</button>
+            </div>
+            
+        </div>
+    </form>
+    <p style="color: whitesmoke; text-align: center;">Already have an account? <a href="login.php">LOGIN?</a></p>
+
+    <script src="signin.js"></script>
+</body>
+</html>
