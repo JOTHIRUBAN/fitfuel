@@ -48,8 +48,8 @@
                 position: fixed;
                 top: 10%;
                 left: 10%;
-                width: 80%;
-                height: 80%;
+                width: 75%;
+                height: 75%;
                 background-color:rgb(170,253,53);
                 justify-content: space-around;
                 align-items: center;
@@ -74,6 +74,8 @@
                 border-radius: 15px;
                 box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
                 position: relative;
+                width: 25rem;
+
             }
     
             #userInfoContainer {
@@ -171,7 +173,26 @@
                 transform: translate(100%, -100%);
             }
         }
-    
+
+        ::placeholder {
+            font-size: 1rem;
+            font-family:sans-serif;
+            color: hsl(85, 4%, 15%);
+            font-weight: bold;
+        }
+        
+        input{
+            border-color:hsl(85, 4%, 15%) ;
+        }
+        select{
+            font-size: 1rem;
+            font-family:sans-serif; 
+            color: hsl(85, 4%, 15%);
+            font-weight: bold;
+        }
+        
+
+
         </style>
         <link rel="stylesheet" href="styles.css">
 
@@ -362,24 +383,27 @@
         <div id="overlay">
             <div id="innerBox">
                 <span id="closeButton" style="color:red;font-size: 1rem;" onclick="toggleBox()">&#10006;</span>
-                <h2>Welcome, User!</h2>
+                <h2 style="font-size: 2rem;">Welcome, User!</h2>
                 <form id="formContainer" onsubmit="return submitForm()">
-                    <label for="weight">Weight:</label>
+                    <label style="font-weight: 600;font-size: 1.5rem;"  for="weight">Weight:</label>
                     <input type="text" id="weight" name="weight" placeholder="Enter your weight">
     
-                    <label for="height">Height:</label>
+                    <label style="font-weight: 600;font-size: 1.5rem;" for="height">Height:</label>
                     <input type="text" id="height" name="height" placeholder="Enter your height">
     
-                    <label for="diets">Following any diets?</label>
+                    <label style="font-weight: 600;font-size: 1.5rem;" for="diets">Following any diets?</label>
                     <select id="diets" name="diets">
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
     
-                    <label for="healthIssues">Any health issues? (Type below)</label>
+                    <label style="font-weight: 600;font-size: 1.5rem;" for="healthIssues">Any health issues? <br>(Type below)</label>
                     <textarea id="healthIssues" name="healthIssues" rows="4" placeholder="Type your health issues"></textarea>
     
-                    <button id="submitButton" type="submit">Submit</button>
+                    <button style="font-size: 1rem;
+                    font-family:sans-serif; 
+                    color: hsl(85, 4%, 15%);
+                    font-weight: bold;"    id="submitButton" type="submit">Submit</button>
                 </form>
             </div>
         </div>
@@ -394,14 +418,14 @@
     <div id="successContainer">
         <span id="closeSuccessButton" onclick="closeSuccessContainer()">&#10006;</span>
         <div id="userInfoContainer">
-            <h1 style="color: #333; font-size: 4rem">Hello, User!</h1>
-            <span style="color: whitesmoke; font-size: 2.5rem">UserName: username</span>
-            <span style="color: whitesmoke; font-size: 2.5rem">User ID: user id</span>
-            <span style="color: whitesmoke; font-size: 2.5rem">Weight: weight</span>
-            <span style="color: whitesmoke; font-size: 2.5rem">Height: height</span>
+            <h1 style="color: #333; font-size: 3rem">Hello, User!</h1>
+            <span style="color: whitesmoke; font-size: 2.0rem">UserName: username</span>
+            <span style="color: whitesmoke; font-size: 2.0rem">User ID: user id</span>
+            <span style="color: whitesmoke; font-size: 2.0rem">Weight: weight</span>
+            <span style="color: whitesmoke; font-size: 2.0rem">Height: height</span>
         </div>
         <div id="bmiContainer">
-            <div style="color: rgb(170,253,53); font-size: 2.5rem">BMI: BMI</div><br>
+            <div style="color: rgb(170,253,53); font-size: 2.5rem;font-weight: 200;">BMI: BMI</div><br>
             <div style="color: rgb(128, 130, 128); font-size: 2.5rem">Hey user, this is a message for you!</div><br>
             <div style="color: rgb(130, 128, 128); font-size: 2.5rem">TODAY CALORIES: number</div>
         </div>
