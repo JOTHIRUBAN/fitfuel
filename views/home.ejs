@@ -194,7 +194,7 @@
 
 
         </style>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="/css/styles.css">
 
     </head>
     <body>
@@ -217,9 +217,7 @@
                         <li class="nav__item">
                             <a href="#contact" class="nav__link">Contact us</a>
                         </li>
-                        <i class='bx bx-user change-theme' id="profile-button"></i>
-
-                        
+                        <i class='bx bx-user change-theme' id="profile-button" onclick="showSuccessContainer()"></i>
                     </ul>
                 </div>
 
@@ -227,7 +225,7 @@
                     <i class='bx bx-grid-alt'></i>
                 </div>
 
-                <a href="#" class="button button__header">Login</a>
+                <a href="login" class="button button__header">Login</a>
             </nav>
         </header>
                     <!--=============== HOME ===============-->
@@ -238,7 +236,7 @@
                                 <h1 class="home__title">Fitness<br>and Why?</h1>
                                 <p class="home__description">Fitness is the key to a healthier, more vibrant life. Regular exercise enhances physical well-being, strengthens mental resilience, and fosters emotional balance. It is not just a routine; it's an investment in overall health and longevity. Embrace fitness to unlock your full potential and enjoy a more energized, fulfilling lifestyle.</p>
         
-                                <a href="#" class="button "  onclick="toggleBox()">Get Started</a>
+                                <a href="#container" class="button "  onclick="toggleBox()">Get Started</a>
                                 <!-- <button id="startButton" onclick="toggleBox()">Start</button> -->
                                 
         
@@ -384,7 +382,7 @@
             <div id="innerBox">
                 <span id="closeButton" style="color:red;font-size: 1rem;" onclick="toggleBox()">&#10006;</span>
                 <h2 style="font-size: 2rem;">Welcome, User!</h2>
-                <form id="formContainer" onsubmit="return submitForm()">
+                <form id="formContainer"  method="post" action="home" onsubmit="return submitForm()">
                     <label style="font-weight: 600;font-size: 1.5rem;"  for="weight">Weight:</label>
                     <input type="text" id="weight" name="weight" placeholder="Enter your weight">
     
@@ -419,10 +417,12 @@
         <span id="closeSuccessButton" onclick="closeSuccessContainer()">&#10006;</span>
         <div id="userInfoContainer">
             <h1 style="color: #333; font-size: 3rem">Hello, User!</h1>
-            <span style="color: whitesmoke; font-size: 2.0rem">UserName: username</span>
-            <span style="color: whitesmoke; font-size: 2.0rem">User ID: user id</span>
-            <span style="color: whitesmoke; font-size: 2.0rem">Weight: weight</span>
-            <span style="color: whitesmoke; font-size: 2.0rem">Height: height</span>
+            
+            <span style="color: whitesmoke; font-size: 2.0rem">UserName: <%= locals.username ? locals.username : "default_username" %></span>
+            <span style="color: whitesmoke; font-size: 2.0rem">User ID: </span>
+            <span style="color: whitesmoke; font-size: 2.0rem">Weight:<%= locals.weight ? locals.weight : "default_weight" %></span>
+            <span style="color: whitesmoke; font-size: 2.0rem">Height: <%= locals.weight ? locals.height : "default_weight" %></span>
+          
         </div>
         <div id="bmiContainer">
             <div style="color: rgb(170,253,53); font-size: 2.5rem;font-weight: 200;">BMI: BMI</div><br>
@@ -465,7 +465,7 @@
                 return false;
             }
     
-            showSuccessContainer();
+            toggleBox();
             return false;
         }
     

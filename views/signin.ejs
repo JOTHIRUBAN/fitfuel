@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flipzon Create Account</title>
     <link rel="Shortcut Icon" type="images" href="./imgs/favicon4.png">
-    <link rel="stylesheet" href="../public/css/sigin_login.css">
+    <link rel="stylesheet" href="/css/sigin_login.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
@@ -13,10 +13,10 @@
     <header>
         <h1 class="neon-text">CREATE ACCOUNT</h1>
     </header>
-    <form action="signin.php" method="post" id="form">
+    <form action="signin" method="post" id="form">
         
         <div class="container">
-            <div class="image-container"><img src="../public/img/gettyimages-1295823260-612x612-removebg (1).png " alt="OOPS something went wrong" width="100%"></div>
+            <div class="image-container"><img src="/img/gettyimages-1295823260-612x612-removebg (1).png " alt="OOPS something went wrong" width="100%"></div>
             
             <div>
                 <p>
@@ -47,7 +47,7 @@
             
         </div>
     </form>
-    <p style="color: whitesmoke; text-align: center;">Already have an account? <a href="login.html">LOGIN?</a></p>
+    <p style="color: whitesmoke; text-align: center;">Already have an account? <a href="login">LOGIN?</a></p>
 
     <script src="signin.js">
         const form = document.getElementById("form");
