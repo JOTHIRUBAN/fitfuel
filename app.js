@@ -48,6 +48,7 @@ app.get("/signin",(req,res)=>{
 
 app.get("/menu",(req,res)=>{
   res.render("menu");
+  console.log(req.session.userId);
 })
 
 
@@ -132,6 +133,7 @@ app.post("/home",async (req,res)=>{
       if(bmi_user){
         let bmi = bmi_user.bmi;
         let status = bmi_user.status;
+        req.session.Status =  bmi_user.status;
         let required_weight = bmi_user.required_weight;
         res.render("home",{user_id:user_id,username:name,weight:weight,height:height,bmi:bmi,status:status});
 
@@ -143,6 +145,58 @@ app.post("/home",async (req,res)=>{
     }
 
 })
+
+
+
+
+app.post('/menu', async (req, res) => {
+  try {
+    
+
+    const { regex,food_type } = req.body;
+    const queryString = 'SELECT food_id,food_name, food_image, food_type, food_tag, description, calories, price FROM food WHERE food_name LIKE $1 and food_tag=$2';
+    const queryValues = [`%${regex}%`,req.session.Status];
+
+    const result = await pool.query(queryString, queryValues);
+    console.log(result.rows);
+
+    // Render the 'menu' template with the query result
+   res.render('./menu', { result: result.rows }); 
+  } catch (error) {
+    console.error('Error executing query:', error);
+    // Handle the error
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
+});
+
+app.post('/menu1', async (req, res) => {
+  console.log(req.session.userId);
+  try {
+    
+    const { food_id } = req.body;
+    const queryString = `
+      INSERT INTO order_table (user_id, food_ids, order_time)
+      VALUES ($1, ARRAY[$2::integer], NOW())
+      ON CONFLICT (user_id)
+      DO UPDATE
+      SET food_ids = array_append(order_table.food_ids, $2::integer), order_time = NOW();
+    `;
+
+    console.log(req.session.userId);
+    const queryValues = [req.session.userId, food_id];
+
+    const result = await pool.query(queryString, queryValues);
+    console.log(result.rows);
+
+    // Render the 'menu' template with the query result
+    res.render('./menu'); 
+  } catch (error) {
+    console.error('Error executing query:', error);
+    // Handle the error
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
+});
+
 
 app.get("/manager",async (req,res)=>{
   
@@ -177,25 +231,7 @@ app.post("/manager",async (req,res)=>{
 })
 
 
-app.post('/menu', async (req, res) => {
-  try {
-    
 
-    const { regex/* ,food_type  */} = req.body;
-    const queryString = 'SELECT food_id,food_name, food_image, food_type, food_tag, description, calories, price FROM food WHERE food_name LIKE $1';
-    const queryValues = [`%${regex}%`/* ,food_type */];
-
-    const result = await pool.query(queryString, queryValues);
-    console.log(result.rows);
-
-    // Render the 'menu' template with the query result
-   res.render('./menu', { result: result.rows }); 
-  } catch (error) {
-    console.error('Error executing query:', error);
-    // Handle the error
-    res.status(500).json({ error: 'Internal Server Error' });
-  } 
-});
 
 
 

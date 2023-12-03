@@ -246,9 +246,9 @@
                     <p style="position: relative; left:10%;font-size: 1rem; "><span style="font-weight:bold;">Food Calories: </span><%= food.calories %></p>
                     <p style="position: relative; left:10%;font-size: 1rem; "><span style="font-weight:bold;">Recommended for : </span><%= food.food_tag %></p>
                     <div class="price-tag" style="margin-left:250px">₹<%= food.price %></div>
-                    <form>
-                        <input type="hidden" name="food_id" value= "<%= food.food_name %>">
-                        <input type="hidden" name="user_id" value= "<%= %>">
+                    <form method="post" action="menu1">
+                        <input type="hidden" name="food_id" value= "<%= food.food_id %>">
+                        <!-- <input type="hidden" name="user_id" value= "<%= %>"> -->
                         <button class="button" ><span style="font-weight: bolder; font-size: large;">Add to Plate</button>
                     </form>
                     
