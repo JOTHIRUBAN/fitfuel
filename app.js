@@ -5,11 +5,6 @@ const bcrypt = require('bcrypt');
 const { Pool } = require('pg');
 const flash = require('express-flash');
 const ejs = require('ejs');
-//const bcrypt = require('bcrypt');
-//const { Pool } = require('pg');
-
-const { dbcon, dbend,pool } = require('./dbconnect');
-
 const app = express();
 
 // Set up session
@@ -32,8 +27,8 @@ app.set('view engine','ejs');
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'Fit',
-    password: 'postgres',
+    database: 'fitfuel',
+    password: 'Jeyanth@2004',
     port: 5432,
   });
 
@@ -49,14 +44,16 @@ app.get("/login",(req,res)=>{
 app.get("/signin",(req,res)=>{
     res.render("signin");
 })
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+
 
 app.get("/menu",(req,res)=>{
   res.render("menu");
 })
 
-app.post("/home",(req,res)=>{
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
   try {
     // Check if the user exists
     const result = await pool.query('SELECT * FROM "user" WHERE email = $1', [email]);
@@ -145,31 +142,7 @@ app.post("/home",async (req,res)=>{
       res.status(500).json({ message: 'unable to insert the height and weight' });
     }
 
-    res.render("home",{username:name,weight:weight,height:height});
 })
-
-app.post('/menu', async (req, res) => {
-    try {
-      await dbcon(); // Connect to the database
-  
-      const { regex/* ,food_type  */} = req.body;
-      const queryString = 'SELECT food_id,food_name, food_image, food_type, food_tag, description, calories, price FROM food WHERE food_name LIKE $1';
-      const queryValues = [`%${regex}%`/* ,food_type */];
-  
-      const result = await pool.query(queryString, queryValues);
-      console.log(result.rows);
-  
-      // Render the 'menu' template with the query result
-     res.render('./menu', { result: result.rows }); 
-    } catch (error) {
-      console.error('Error executing query:', error);
-      // Handle the error
-      res.status(500).json({ error: 'Internal Server Error' });
-    } 
-  });
-
-
-
 
 app.get("/manager",async (req,res)=>{
   
@@ -191,7 +164,7 @@ app.post("/manager",async (req,res)=>{
     if (result.rows.length > 0) {
       // User found, set session and redirect
       req.session.userId = result.rows[0].manager_id;
-      res.redirect("que");
+      res.render("quee");
     } else {
       // Invalid credentials, redirect to login
       res.render("query");
@@ -202,8 +175,35 @@ app.post("/manager",async (req,res)=>{
   }
 
 })
+
+
+app.post('/menu', async (req, res) => {
+  try {
+    
+
+    const { regex/* ,food_type  */} = req.body;
+    const queryString = 'SELECT food_id,food_name, food_image, food_type, food_tag, description, calories, price FROM food WHERE food_name LIKE $1';
+    const queryValues = [`%${regex}%`/* ,food_type */];
+
+    const result = await pool.query(queryString, queryValues);
+    console.log(result.rows);
+
+    // Render the 'menu' template with the query result
+   res.render('./menu', { result: result.rows }); 
+  } catch (error) {
+    console.error('Error executing query:', error);
+    // Handle the error
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
+});
+
+
+
+
+
 app.listen(3000,()=>{
     console.log("3000");
 })
+
 
 
