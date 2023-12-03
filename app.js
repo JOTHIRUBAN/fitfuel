@@ -25,9 +25,9 @@ app.set('view engine','ejs');
 
 //postgresql configuration
 const pool = new Pool({
-    user: 'jothiruban',
-    host: '10.13.26.67',
-    database: 'fitfuel',
+    user: 'postgres',
+    host: 'localhost',
+    database: 'Fit',
     password: 'postgres',
     port: 5432,
   });
@@ -60,6 +60,8 @@ app.post('/login', async (req, res) => {
    
         console.log(user);
         req.session.userId = user.user_id;
+        req.session.userName = user.user_name;
+        req.session.userEmail = user.email;
         res.redirect('home');
       
       } else {
@@ -76,11 +78,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.get('/home', (req, res) => {
-      res.send(`Welcome, ${req.session.userId}!`);
-    
-  });
-  
+
   function isAuthenticated(req, res, next) {
     if (req.session.userId) {
       return next();
@@ -98,16 +96,46 @@ app.post('/signin', async (req, res) => {
       res.redirect('/login'); // Redirect to login page after successful registration
     } catch (error) {
       console.error('Error during registration:', error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).json({ message: 'User already found' });
     }
   });
 
-
-app.post("/home",(req,res)=>{
-    let username = "Jeyabalan";
+  app.get('/home', (req, res) => {
+    res.render('home');
+});
+app.post("/home",async (req,res)=>{
     let height = req.body.height;
     let weight = req.body.weight;
-    res.render("home",{username:username,weight:weight,height:height});
+    let name = req.session.userName;
+    let diet = req.body.diets;
+    let health_issues = req.body.healthIssues;
+    let user_id = req.session.userId
+    console.log(req.session.userId);
+    const bmi_insert = "INSERT INTO user_profile(user_id,user_name,weight,height,health_issues,diet) values($1,$2,$3,$4,$5,$6)";
+    try{
+      await pool.query(bmi_insert,[user_id,name,weight,height,health_issues,diet]);
+    }catch(error){
+      res.status(500).json({ message: 'unable to insert the height and weight' });
+    }
+    const bmi_select = "SELECT * FROM user_profile where user_id=$1";
+    try{
+      const bmi_result = await pool.query(bmi_select,[user_id]);
+      const bmi_user = bmi_result.rows[0]
+      console.log(bmi_result.rowCount);
+      if(bmi_user){
+        let bmi = bmi_user.bmi;
+        let status = bmi_user.status;
+        let required_weight = bmi_user.required_weight;
+        res.render("home",{user_id:user_id,username:name,weight:weight,height:height,bmi:bmi,status:status});
+
+      }else{
+        res.status(500).json({ message: 'couldnt get' });
+      }
+    }catch(error){
+      res.status(500).json({ message: 'unable to insert the height and weight' });
+    }
+
+    res.render("home",{username:name,weight:weight,height:height});
 })
 
 app.listen(3000,()=>{
