@@ -118,7 +118,81 @@
             color: black;
 
         }
-    
+        .green-box {
+            width: 100%;
+            height: 470px;
+            background-color: rgb(231, 231, 231);
+            border-radius: 10px;
+            margin: 10px 0; /* Adjust this value to control the distance between boxes */
+        }
+
+
+        /**/
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            position: relative;
+        }
+
+        .green-box {
+            display: flex;
+            height: 470px;
+            padding: 10px;
+            background-color: rgb(231, 231, 231);
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .image {
+            display: flex;
+            width: 400px; /* Make the image fill its container */
+            height: 460px;
+            background-color: whitesmoke;
+            box-shadow: 10px 10px 10px 10px #b7b6b6;
+            justify-content: center;
+            overflow:hidden; /* Ensure the image doesn't overflow */
+            border-radius: 10px 10px 10px 10px; /* Rounded corners for the left side */
+        }
+
+        .image:hover{
+            background-color:rgb(170,253,53);
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            padding: 10px 10px;
+        }
+
+        .info {
+            flex: 0 0 50%; /* Adjust the percentage to control the width of the info */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            border-radius: 0 10px 10px 0; /* Rounded corners for the right side */
+        }
+
+        
+        .button {
+            display: inline-block;
+            background-color:rgb(170,253,53);
+            color: #1A1A1A;
+            padding: .75rem 1.5rem;
+            border-radius: 3rem;
+            
+            transition: .3s;
+            position: relative;
+            top:10%
+        }
+
+        .button:hover {
+            background-color:#ccc ;
+            font-size: 20px;
+
+        }
 
     </style>
 </head>
@@ -136,10 +210,56 @@
 </div>
 
 <div class="search-bar">
-    <input type="text" class="search-input" placeholder="Search...">
-    <button class="search-button">Search</button>
+    <form method="post" action="menu"> 
+        <input type="text" class="search-input" placeholder="Search..." name="regex">
+        <button class="search-button">Search</button>
+    </form>
 </div>
-<pre>
+
+
+<div class="content">
+    <div class="green-box">
+        <div class="image">
+            <img src="img\pexels-alina-matveycheva-12081010.jpg" alt="Image Description">
+        </div>
+        <div class="info">
+            <h2 style="text-align: center; font-size: 2rem;">Food Name</h2>
+            <p style="position: relative; left:10%; font-weight:bold;">Food Calories</p>
+            <p>This is a caption.</p>
+            <p>Lorem ipsum paragraph.</p>
+            <p>Recommended for people...</p>
+            <div class="price-tag" style="margin-left:250px">₹Price</div>
+            <button class="button" ><span style="font-weight: bolder; font-size: large;">Add to Plate</span></button>
+        </div>
+    </div>
+    <% if(locals.result){%>
+    <% if (result && result.length > 0) { %>
+        <% result.forEach(food => { %>
+            <div class="green-box">
+                <div class="image">
+                    <img src="<%= food.food_image %>" alt="<%= food.food_name %>">
+                </div>
+                <div class="info">
+                    <h2 style="text-align: center; font-size: 2rem;"><%= food.food_name %></h2>
+                    <p style="position: relative; left:10%;font-size: 1rem; "><span style="font-weight:bold;">Food Type: </span><%= food.food_type %></p>
+                    <p style="position: relative; left:10%;font-size: 1rem; "><span style="font-weight:bold;">Description: </span><%= food.description %></p>
+                    <p style="position: relative; left:10%;font-size: 1rem; "><span style="font-weight:bold;">Food Calories: </span><%= food.calories %></p>
+                    <p style="position: relative; left:10%;font-size: 1rem; "><span style="font-weight:bold;">Recommended for : </span><%= food.food_tag %></p>
+                    <div class="price-tag" style="margin-left:250px">₹<%= food.price %></div>
+                    <form>
+                        <input type="hidden" name="food_id" value= "<%= food.food_name %>">
+                        <input type="hidden" name="user_id" value= "<%= %>">
+                        <button class="button" ><span style="font-weight: bolder; font-size: large;">Add to Plate</button>
+                    </form>
+                    
+                </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <p>No results found.</p>
+    <% } %>
+    <% } %>
+    <pre>
 
 
 
@@ -186,8 +306,7 @@
 
 
 
-</pre>
-<div class="content">
+    </pre>
     <h2>Too Hungry?</h2>
     <div class="container" id="no1">
     <div class="box">

@@ -8,6 +8,32 @@ CREATE TABLE food (
    	food_type VARCHAR(50)
 );
 
+alter table  food add column food int;
+alter table  food add column food_tag varchar;
+
+/* app.post('/menu', async (req, res) => {
+  try {
+    await dbcon(); // Connect to the database
+
+    const { regex } = req.body;
+    const queryString = 'SELECT food_name, food_image, food_type, food_status, description, food_calories, food_price FROM food WHERE food_name LIKE $1';
+    const queryValues = [`%${regex}%`];
+
+    const result = await pool.query(queryString, queryValues);
+
+    // Render the 'menu' template with the query result
+    res.render('menu', { result: result.rows });
+  } catch (error) {
+    console.error('Error executing query:', error);
+    // Handle the error
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    // Close the database connection
+    await dbend();
+  }
+}); */
+
+
 -- Create the 'supplier' table
 CREATE TABLE supplier (
     supplier_id SERIAL PRIMARY KEY,
