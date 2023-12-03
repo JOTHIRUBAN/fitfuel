@@ -1,0 +1,50 @@
+<%
+const rows = row;
+const headers = Object.keys(rows[0]);
+%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Display</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <% headers.forEach(header => { %>
+                    <th><%= header %></th>
+                <% }); %>
+            </tr>
+        </thead>
+        <tbody>
+            <% rows.forEach(row => { %>
+                <tr>
+                    <% headers.forEach(header => { %>
+                        <td><%= row[header] %></td>
+                    <% }); %>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>
