@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Example</title>
+    <style>
+        body {
+
+            background-color:hsl( 85 , 0%, 100%);
+            margin: 0px;
+            font-family: 'Arial', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            background-color:rgb(170,253,53);
+            padding-top: 20px;
+            color:hsl(85, 4%, 15%);
+        }
+
+        .sidebar a {
+            margin-left: 15px;
+            margin-right: 15px;
+            padding: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color:hsl(85, 4%, 15%);
+            display: block;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
+        .sidebar a:hover {
+            background-color:white;
+            border-radius: 30px;
+            
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 16px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .box {
+            flex: 0 0 calc(33.33% - 20px);
+            background-color:whitesmoke;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            height: 470px;
+        }
+
+        .box:hover{
+            background-color:rgb(170,253,53);
+
+        }
+
+        
+        .search-bar {
+            display: flex;
+            margin-top: 0px;
+            justify-content:center;
+            margin-bottom: 20px;
+            padding-top: 30px;
+            padding-left: 150px;
+            border: 1px black;
+
+        }
+
+        .search-input {
+            border: 1px black;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            color: black;
+        }
+
+        .search-button {
+            padding: 10px;
+            background-color:rgb(170,253,53);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: rgb(170,253,53);
+            border-color: black;
+            font-weight: bold;
+            color: black;
+            border: 1px solid black;
+        }
+
+        .price-tag {
+            width: 70px;
+            top: 10px;
+            right: 10px;
+            background-color:rgb(170,253,53);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-left: 110px;
+            height: 25px;
+            text-align: center;
+            color: black;
+
+        }
+    
+
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <a href="home.html">
+        <h1 style="text-align: center;color:hsl(85, 4%, 10%);">FitFuel</h1><br></a>
+    <a href="#no1">Starters</a><br>
+    <a href="#">Main Course</a><br>
+    <a href="#">Desserts</a><br>
+    <a href="#">Beverages</a><br>
+    <a href="#">Protein foods</a><br>
+    <a href="#">Zero Calorie Foods</a><br>
+</div>
+
+<div class="search-bar">
+    <input type="text" class="search-input" placeholder="Search...">
+    <button class="search-button">Search</button>
+</div>
+<pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
+
+
+
+
+
+</pre>
+<div class="content">
+    <h2>Too Hungry?</h2>
+    <div class="container" id="no1">
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src=" img\pexels-ruslan-khmelevsky-7226367.jpg"></div>
+        <h2>Crispy cucumber salad</h2>
+        <p style="font-weight:bold;">Freshly chopped veggies from Freshly.com</p>
+        <div class="price-tag">₹70.0</div>
+        
+    </div>
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src=" img\pexels-valeria-boltneva-10038681.jpg"></div>
+        <h2>Steamed potato cake</h2>
+        <p style="font-weight:bold;">Juicy potato steamed with mustard sauce with greens</p>
+        <div class="price-tag">₹90.0</div>
+        
+    </div>
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-alina-matveycheva-12081010.jpg"></div>
+        <h2>Garlic boils with caffeine</h2>
+        <p style="font-weight:bold;">A slice of garlic bread with a half boil served with expresso</p>
+        <div class="price-tag">₹120.0</div>
+        
+    </div>
+</div>
+
+
+<div class="container" id="no1">
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-jane-doan-824635.jpg"></div>
+        <h2>Avocado Toast</h2>
+        <p style="font-weight:bold;">Whole-grain toast topped with creamy avocado slices and a boiled agg for healthy breakfast.</p>
+        <div class="price-tag">₹70.0</div>
+        
+    </div>
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src=" img\pexels-valeria-boltneva-10038681.jpg"></div>
+        <h2>Steamed potato cake</h2>
+        <p style="font-weight:bold;">Juicy potato steamed with mustard sauce with greens</p>
+        <div class="price-tag">₹90.0</div>
+        
+    </div>
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-alina-matveycheva-12081010.jpg"></div>
+        <h2>Garlic boils with caffeine</h2>
+        <p style="font-weight:bold;">A slice of garlic bread with a half boil served with expresso</p>
+        <div class="price-tag">₹120.0</div>
+        
+    </div>
+</div>
+</div>
+
+</body>
+<script>
+    // JavaScript to add smooth scrolling behavior for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+</html>
