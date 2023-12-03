@@ -385,7 +385,7 @@
             <div id="innerBox">
                 <span id="closeButton" style="color:red;font-size: 1rem;" onclick="toggleBox()">&#10006;</span>
                 <h2 style="font-size: 2rem;">Welcome, User!</h2>
-                <form id="formContainer"  method="post" action="home" onsubmit="return submitForm()">
+                <form id="formContainer"  method="post" action="home" >
                     <label style="font-weight: 600;font-size: 1.5rem;"  for="weight">Weight:</label>
                     <input type="text" id="weight" name="weight" placeholder="Enter your weight">
     
@@ -422,15 +422,15 @@
             <h1 style="color: #333; font-size: 3rem">Hello, User!</h1>
             
             <span style="color: whitesmoke; font-size: 2.0rem">UserName: <%= locals.username ? locals.username : "default_username" %></span>
-            <span style="color: whitesmoke; font-size: 2.0rem">User ID: </span>
+            <span style="color: whitesmoke; font-size: 2.0rem">User ID:<%= locals.user_id ? locals.user_id : "default_username" %> </span>
             <span style="color: whitesmoke; font-size: 2.0rem">Weight:<%= locals.weight ? locals.weight : "default_weight" %></span>
             <span style="color: whitesmoke; font-size: 2.0rem">Height: <%= locals.weight ? locals.height : "default_weight" %></span>
           
         </div>
         <div id="bmiContainer">
-            <div style="color: rgb(170,253,53); font-size: 2.5rem;font-weight: 200;">BMI: BMI</div><br>
+            <div style="color: rgb(170,253,53); font-size: 2.5rem;font-weight: 200;">BMI: <%= locals.bmi ? locals.bmi : "default_bmi" %></div><br>
             <div style="color: rgb(128, 130, 128); font-size: 2.5rem">Hey user, this is a message for you!</div><br>
-            <div style="color: rgb(130, 128, 128); font-size: 2.5rem">TODAY CALORIES: number</div>
+            <div style="color: rgb(130, 128, 128); font-size: 2.5rem">status:<%= locals.status ? locals.status : "default_weight" %></div>
         </div>
     </div>
 
