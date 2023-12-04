@@ -135,15 +135,14 @@ app.post("/home",async (req,res)=>{
       res.status(500).json({ message: 'unable to insert the height and weight' });
     }
 
-    res.render("home",{username:name,weight:weight,height:height});
 })
 
 app.get("/manager",async (req,res)=>{
   
   res.render("manager");
 })
-app.get("/que",async (req,res)=>{
-  const q = await pool.query('select * from "user"');
+app.post("/query",async (req,res)=>{
+  const q = await pool.query(req.body.query);
 
   const rows = q.rows;
   console.log(rows);
@@ -158,7 +157,8 @@ app.post("/manager",async (req,res)=>{
     if (result.rows.length > 0) {
       // User found, set session and redirect
       req.session.userId = result.rows[0].manager_id;
-      res.redirect("que");
+      req.session.userName = result.rows[0].manager_name;
+      res.render("quee",{manager:req.session.userName});
     } else {
       // Invalid credentials, redirect to login
       res.render("query");
@@ -169,6 +169,7 @@ app.post("/manager",async (req,res)=>{
   }
 
 })
+
 app.listen(3000,()=>{
     console.log("3000");
 })
