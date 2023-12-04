@@ -168,8 +168,40 @@ app.post("/manager",async (req,res)=>{
     res.status(500).send('Internal Server Error');
   }
 
+   
 })
 
+app.get("/manager",async (req,res)=>{
+  
+  res.render("manager");
+})
+app.get("/que",async (req,res)=>{
+  const q = await pool.query('select * from "user"');
+
+  const rows = q.rows;
+  console.log(rows);
+  res.render("query",{row:rows});
+})
+app.post("/manager",async (req,res)=>{
+  const { username, password } = req.body;
+
+  try {
+    const result = await pool.query('SELECT * FROM manager WHERE manager_name = $1 AND manager_password = $2', [username, password]);
+
+    if (result.rows.length > 0) {
+      // User found, set session and redirect
+      req.session.userId = result.rows[0].manager_id;
+      res.redirect("que");
+    } else {
+      // Invalid credentials, redirect to login
+      res.render("query");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+
+})
 app.listen(3000,()=>{
     console.log("3000");
 })
