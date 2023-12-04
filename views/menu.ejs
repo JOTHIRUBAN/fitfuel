@@ -74,14 +74,15 @@
             padding-top: 30px;
             padding-left: 150px;
             border: 1px black;
+            margin-left: 35rem;
+            margin-right: 25rem;
 
         }
 
         .search-input {
-            border: 1px black;
+            border: 1px solid black;
             padding: 10px;
             font-size: 16px;
-            border: 1px solid #ccc;
             border-radius: 20px;
             color: black;
         }
@@ -158,44 +159,6 @@
                 margin-right: 50px;
             }
     
-            #containerss {
-                display: flex;
-                position: fixed;
-                top: 50%;
-                left: -100%;
-                transform: translate(-50%, -50%);
-                transition: left 0.5s ease;
-            }
-
-
-            #bottomContainer {
-                display: none;
-                position: fixed;
-                bottom: 1in;
-                left: 0;
-                width: calc(100% - 2in);
-                height: 1in;
-                background-color: rgb(170,253,53);
-                justify-content: center;
-                align-items: center;
-                z-index: 1;
-                border-radius: 10px;
-            }
-    
-            #successContainer {
-                display: none;
-                position: fixed;
-                top: 10%;
-                left: 10%;
-                width: 75%;
-                height: 75%;
-                background-color:rgb(170,253,53);
-                justify-content: space-around;
-                align-items: center;
-                z-index: 2;
-                animation: slide 2s ease-in-out;
-                border-radius: 20px;
-            }
             
             /**/
         .content {
@@ -275,6 +238,8 @@
 
     
     </style>
+    <link rel="stylesheet" href="/css/review.css">
+
 </head>
 <body>
 
@@ -287,14 +252,16 @@
     <a href="#beverages">Beverages</a><br>
     <a href="#protein">Protein foods</a><br>
     <a href="#beverages">Zero Calorie Foods</a><br>
+    <a href="#" class="button"  onclick="toggleBox()">Write a Review</a><br>
 </div>
 
-<div class="search-bar">
-    <form method="post" action="menu"> 
+<form method="post" action="menu">
+    <div class="search-bar">
         <input type="text" class="search-input" placeholder="Search..." name="regex">
         <button class="search-button">Search</button>
-    </form>
-</div>
+    </div>
+</form>
+
 
 <div class="content">
     <div class="green-box">
@@ -362,7 +329,6 @@
         <h2>Garlic boils with caffeine</h2>
         <p style="font-weight:bold;">A slice of garlic bread with a half boil served with expresso</p>
         <div class="price-tag">₹120.0</div>
-        
     </div>
 </div>
 
@@ -522,28 +488,32 @@
 </div>
 
 
-<a href="#" class="button "  onclick="toggleBox()">Write a Review</a>
 
-<div id="containerss">
+
+<div id="container">
     <div id="overlay">
         <div id="innerBox">
             <span id="closeButton" style="color:red;font-size: 1rem;" onclick="toggleBox()">&#10006;</span>
-            <h2 style="font-size: 2rem;">Welcome, User!</h2>
+            <h2 style="font-size: 2rem;">Let us know!</h2>
             <form id="formContainer" onsubmit="return submitForm()">
-                <label style="font-weight: 600;font-size: 1.5rem;"  for="weight">Weight:</label>
-                <input type="text" id="weight" name="weight" placeholder="Enter your weight">
+                <label style="font-weight: 600;font-size: 1.5rem;"  for="weight">Food Name:</label>
+                <input type="text" id="weight" name="weight" >
 
-                <label style="font-weight: 600;font-size: 1.5rem;" for="height">Height:</label>
-                <input type="text" id="height" name="height" placeholder="Enter your height">
+                <label style="font-weight: 600;font-size: 1.5rem;" for="height">Food Type:</label>
+                <input type="text" id="height" name="height" >
 
-                <label style="font-weight: 600;font-size: 1.5rem;" for="diets">Following any diets?</label>
+                <label style="font-weight: 600;font-size: 1.5rem;" for="diets">How good was the food?</label>
                 <select id="diets" name="diets">
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                    <option></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                 </select>
 
-                <label style="font-weight: 600;font-size: 1.5rem;" for="healthIssues">Any health issues? <br>(Type below)</label>
-                <textarea id="healthIssues" name="healthIssues" rows="4" placeholder="Type your health issues"></textarea>
+                <label style="font-weight: 600;font-size: 1.5rem;" for="healthIssues">Any issues? <br>(Type below)</label>
+                <textarea id="healthIssues" name="healthIssues" rows="4" ></textarea>
 
                 <button style="font-size: 1rem;
                 font-family:sans-serif; 
@@ -556,7 +526,7 @@
 
 
 
-</div>
+
 
 </body>
 <script>
@@ -570,5 +540,16 @@
             });
         });
     });
+
+    function toggleBox() {
+            const container = document.getElementById("container");
+            const isHidden = container.style.left === "-100%";
+    
+            if (isHidden) {
+                container.style.left = "50%";
+            } else {
+                container.style.left = "-100%";
+            }
+        }
 </script>
 </html>
