@@ -196,7 +196,83 @@
                 animation: slide 2s ease-in-out;
                 border-radius: 20px;
             }
-    
+            
+            /**/
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            position: relative;
+        }
+
+        .green-box {
+            display: flex;
+            height: 470px;
+            padding: 10px;
+            background-color: rgb(231, 231, 231);
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .image {
+            display: flex;
+            width: 400px; /* Make the image fill its container */
+            height: 460px;
+            background-color: whitesmoke;
+            box-shadow: 10px 10px 10px 10px #b7b6b6;
+            justify-content: center;
+            overflow:hidden; /* Ensure the image doesn't overflow */
+            border-radius: 10px 10px 10px 10px; /* Rounded corners for the left side */
+        }
+
+        .image:hover{
+            background-color:rgb(170,253,53);
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            padding: 10px 10px;
+        }
+
+        .info {
+            flex: 0 0 50%; /* Adjust the percentage to control the width of the info */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            border-radius: 0 10px 10px 0; /* Rounded corners for the right side */
+        }
+
+        
+        .button {
+            display: inline-block;
+            background-color:rgb(170,253,53);
+            color: #1A1A1A;
+            padding: .75rem 1.5rem;
+            border-radius: 3rem;
+            
+            transition: .3s;
+            position: relative;
+            top:10%
+        }
+
+        .button:hover {
+            background-color:#ccc ;
+            font-size: 20px;
+
+        }
+
+
+
+
+
+
+
+
+
+
     
     </style>
 </head>
@@ -219,7 +295,6 @@
         <button class="search-button">Search</button>
     </form>
 </div>
-
 
 <div class="content">
     <div class="green-box">
@@ -263,12 +338,6 @@
         <p>No results found.</p>
     <% } %>
     <% } %>
-    <pre>
-
-
-
-</pre>
-<div class="content">
     <h2>Too Hungry?</h2>
     <div class="container" id="no1">
     <div class="box">
@@ -501,54 +570,5 @@
             });
         });
     });
-
-  
-        function toggleBox() {
-            const container = document.getElementById("container");
-            const isHidden = container.style.left === "-100%";
-    
-            if (isHidden) {
-                container.style.left = "50%";
-            } else {
-                container.style.left = "-100%";
-            }
-        }
-
-
-        function submitForm() {
-            const weight = document.getElementById("weight").value;
-            const height = document.getElementById("height").value;
-    
-            if (weight.trim() === "" || height.trim() === "") {
-                alert("Please fill in all fields.");
-                return false;
-            }
-    
-            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
-                alert("Please enter valid weight and height.");
-                return false;
-            }
-    
-            showSuccessContainer();
-            return false;
-        }
-    
-        function showSuccessContainer() {
-            const container = document.getElementById("container");
-            const successContainer = document.getElementById("successContainer");
-    
-            container.style.left = "-100%";
-            successContainer.style.display = "flex";
-        }
-    
-    
-        function closeSuccessContainer() {
-            const successContainer = document.getElementById("successContainer");
-            successContainer.style.animation = "slideOut 2s ease-in-out";
-            setTimeout(() => {
-                successContainer.style.display = "none";
-                successContainer.style.animation = ""; // Reset animation
-            }, 2000);
-        }
 </script>
 </html>
