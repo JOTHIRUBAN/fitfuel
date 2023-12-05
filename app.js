@@ -234,11 +234,11 @@ app.post("/review", async(req,res)=>{
     
     const {food_name,food_type,food_star,review}=req.body;
     const queryString = `
-      INSERT INTO review (user_id, food_name, food_type,food_star,review)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO review (user_id, food_name, food_type,food_star,review,time)
+      VALUES ($1, $2, $3, $4, $5,now())
       ON CONFLICT (user_id)
       DO UPDATE
-      SET food_name= $2,food_type=$3,food_star=$4,review=$5;
+      SET food_name= $2,food_type=$3,food_star=$4,review=$5,time=now();
     `;
     const queryValues = [req.session.userId, food_name ,food_type,food_star,review];
 
