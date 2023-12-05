@@ -495,15 +495,15 @@
         <div id="innerBox">
             <span id="closeButton" style="color:red;font-size: 1rem;" onclick="toggleBox()">&#10006;</span>
             <h2 style="font-size: 2rem;">Let us know!</h2>
-            <form id="formContainer" onsubmit="return submitForm()">
-                <label style="font-weight: 600;font-size: 1.5rem;"  for="weight">Food Name:</label>
-                <input type="text" id="weight" name="weight" >
+            <form id="formContainer" onsubmit="return submitForm()" method="post" action="review">
+                <label style="font-weight: 600;font-size: 1.5rem;"  for="food_name">Food Name:</label>
+                <input type="text" id="weight" name="food_name" >
 
-                <label style="font-weight: 600;font-size: 1.5rem;" for="height">Food Type:</label>
-                <input type="text" id="height" name="height" >
+                <label style="font-weight: 600;font-size: 1.5rem;" for="food_type">Food Type:</label>
+                <input type="text" id="height" name="food_type" >
 
-                <label style="font-weight: 600;font-size: 1.5rem;" for="diets">How good was the food?</label>
-                <select id="diets" name="diets">
+                <label style="font-weight: 600;font-size: 1.5rem;" for="food_star">How good was the food?</label>
+                <select id="diets" name="food_star">
                     <option></option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -512,8 +512,8 @@
                     <option value="5">5</option>
                 </select>
 
-                <label style="font-weight: 600;font-size: 1.5rem;" for="healthIssues">Any issues? <br>(Type below)</label>
-                <textarea id="healthIssues" name="healthIssues" rows="4" ></textarea>
+                <label style="font-weight: 600;font-size: 1.5rem;" for="review">Any issues? <br>(Type below)</label>
+                <textarea id="healthIssues" name="review" rows="4" ></textarea>
 
                 <button style="font-size: 1rem;
                 font-family:sans-serif; 

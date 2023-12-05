@@ -228,7 +228,33 @@ app.post("/manager",async (req,res)=>{
 
 })
 
+app.post("/review", async(req,res)=>{
+  
+  try {
+    
+    const {food_name,food_type,food_star,review}=req.body;
+    const queryString = `
+      INSERT INTO review (user_id, food_name, food_type,food_star,review)
+      VALUES ($1, $2, $3, $4, $5)
+      ON CONFLICT (user_id)
+      DO UPDATE
+      SET food_name= $2,food_type=$3,food_star=$4,review=$5;
+    `;
+    const queryValues = [req.session.userId, food_name ,food_type,food_star,review];
 
+    const result = await pool.query(queryString, queryValues);
+    console.log("successfully updated");
+
+    // Render the 'menu' template with the query result
+   res.render('./menu'); 
+  } catch (error) {
+    console.error('Error executing query:', error);
+    // Handle the error
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
+
+
+})
 
 
 
