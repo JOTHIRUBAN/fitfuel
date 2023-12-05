@@ -50,3 +50,18 @@ CREATE TABLE manager (
 );
 
 
+
+
+CREATE TABLE manager_food (
+  food_id SERIAL PRIMARY KEY,
+  food_name VARCHAR(255) NOT NULL,
+  food_image VARCHAR(255) NOT NULL,
+  description TEXT,
+  price DECIMAL(10, 2) NOT NULL,
+  food_type VARCHAR(50),
+  calories INTEGER,
+  food_tag VARCHAR(50),
+  keyword VARCHAR(50),
+  supplier_id INTEGER,
+  FOREIGN KEY (supplier_id) REFERENCES supplier(supplier_id)
+);

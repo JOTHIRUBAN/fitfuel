@@ -1,0 +1,151 @@
+<!-- views/foodlog.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Log</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #d4f0e3; /* Light green background */
+    }
+
+    header {
+      background-color: #4caf50; /* Darker green header */
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer {
+      background-color: #4caf50; /* Darker green footer */
+      color: white;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4caf50; /* Darker green header for table */
+      color: white;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f2f2f2; /* Light gray background for even rows */
+    }
+
+    img {
+      max-width: 100px;
+      height: auto;
+    }
+
+    /* Add other styles as needed */
+
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <span>Welcome, <%= manager %></span>
+    </div>
+    <div>
+      <span class="logout-icon" onclick="logout()">Logout &#x21a9;</span>
+    </div>
+  </header>
+  <%if(rowCount!=0){%>
+  <div class="container">
+    <h1>Food Log</h1>
+    
+    <form id="foodLogForm" action="submit_food" method="post">
+    <!-- Table to display food log -->
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Supplier Name</th>
+          <th>Food Name</th>
+          <th>Food Image</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Food Type</th>
+          <th>Calories</th>
+          <!-- Add other table headers (food image, description, price, food_type, calories) here -->
+        </tr>
+      </thead>
+      <tbody>
+        <% foodLogData.forEach(item => { %>
+          <tr>
+            <td><%= item.supplier_name %></td>
+            <td><%= item.food_name %></td>
+            <td><img src="<%= item.food_image %>" alt="<%= item.food_name %>"></td>
+            <td><%= item.description %></td>
+            <td><%= item.price %></td>
+            <td><%= item.food_type %></td>
+            <td><%= item.calories %></td>
+            <td><input type="checkbox" name="selectedFoods" value="<%= item.food_id %>"></td>
+            <!-- Add other table cells (food image, description, price, food_type, calories) here -->
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <!-- Add this input field inside your form -->
+    <input type="hidden" name="selectedFoodIds" id="selectedFoodIds">
+
+    <input type="button" value="Submit" onclick="submitFoodLog()">
+</form>
+<% }else{ %>
+    <!-- Add more content as needed -->
+    <h1>No supplies to check</h1>
+    <% }%>
+  </div>
+
+  <footer>
+    Food Ordering System &copy; 2023
+  </footer>
+
+  <script>
+    function logout() {
+      // Redirect to the login page
+      window.location.href = 'manager';
+    }
+    
+      function submitFoodLog() {
+        // Get all selected food IDs
+        const selectedFoods = document.querySelectorAll('input[name="selectedFoods"]:checked');
+        const foodIds = Array.from(selectedFoods).map(checkbox => checkbox.value);
+      
+        // Set the value of the hidden input field
+        document.getElementById('selectedFoodIds').value = foodIds.join(',');
+      
+        // Submit the form
+        document.getElementById('foodLogForm').submit();
+      }
+      
+    </script>
+  
+</body>
+</html>
