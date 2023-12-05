@@ -57,7 +57,7 @@
             padding: 20px;
             box-sizing: border-box;
             border-radius: 5px;
-            height: 470px;
+            height: 500px;
         }
 
         .box:hover{
@@ -74,14 +74,15 @@
             padding-top: 30px;
             padding-left: 150px;
             border: 1px black;
+            margin-left: 35rem;
+            margin-right: 25rem;
 
         }
 
         .search-input {
-            border: 1px black;
+            border: 1px solid black;
             padding: 10px;
             font-size: 16px;
-            border: 1px solid #ccc;
             border-radius: 20px;
             color: black;
         }
@@ -118,9 +119,127 @@
             color: black;
 
         }
-    
 
+
+        
+        .button {
+            display: inline-block;
+            background-color:rgb(170,253,53);
+            color: #1A1A1A;
+            padding: .75rem 1.5rem;
+            border-radius: 3rem;
+            
+            transition: .3s;
+            position: relative;
+            top:10%
+        }
+
+        .button:hover {
+            background-color:#ccc ;
+            font-size: 20px;
+
+        }
+
+
+
+        .button {
+                background-color: rgb(170,253,53);
+                color:black;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                border: none;
+                border-radius: 5px;
+                margin-top: 20px;
+                font-weight: bold;
+                text-decoration: none;
+                margin-left: 535px;
+                padding: 15px;
+                margin-top: 50px;
+                margin-right: 50px;
+            }
+    
+            
+            /**/
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            position: relative;
+        }
+
+        .green-box {
+            display: flex;
+            height: 470px;
+            padding: 10px;
+            background-color: rgb(231, 231, 231);
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .image {
+            display: flex;
+            width: 400px; /* Make the image fill its container */
+            height: 460px;
+            background-color: whitesmoke;
+            box-shadow: 10px 10px 10px 10px #b7b6b6;
+            justify-content: center;
+            overflow:hidden; /* Ensure the image doesn't overflow */
+            border-radius: 10px 10px 10px 10px; /* Rounded corners for the left side */
+        }
+
+        .image:hover{
+            background-color:rgb(170,253,53);
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            padding: 10px 10px;
+        }
+
+        .info {
+            flex: 0 0 50%; /* Adjust the percentage to control the width of the info */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            border-radius: 0 10px 10px 0; /* Rounded corners for the right side */
+        }
+
+        
+        .button {
+            display: inline-block;
+            background-color:rgb(170,253,53);
+            color: #1A1A1A;
+            padding: .75rem 1.5rem;
+            border-radius: 3rem;
+            
+            transition: .3s;
+            position: relative;
+            top:10%
+        }
+
+        .button:hover {
+            background-color:#ccc ;
+            font-size: 20px;
+
+        }
+
+
+
+
+
+
+
+
+
+
+    
     </style>
+    <link rel="stylesheet" href="/css/review.css">
+
 </head>
 <body>
 
@@ -128,66 +247,64 @@
     <a href="home.html">
         <h1 style="text-align: center;color:hsl(85, 4%, 10%);">FitFuel</h1><br></a>
     <a href="#no1">Starters</a><br>
-    <a href="#">Main Course</a><br>
-    <a href="#">Desserts</a><br>
-    <a href="#">Beverages</a><br>
-    <a href="#">Protein foods</a><br>
-    <a href="#">Zero Calorie Foods</a><br>
+    <a href="#starters">Main Course</a><br>
+    <a href="#desserts">Desserts</a><br>
+    <a href="#beverages">Beverages</a><br>
+    <a href="#protein">Protein foods</a><br>
+    <a href="#beverages">Zero Calorie Foods</a><br>
+    <a href="#" class="button"  onclick="toggleBox()">Write a Review</a><br>
 </div>
 
-<div class="search-bar">
-    <input type="text" class="search-input" placeholder="Search...">
-    <button class="search-button">Search</button>
-</div>
-<pre>
+<form method="post" action="menu">
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search..." name="regex">
+        <button class="search-button">Search</button>
+    </div>
+</form>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
-
-
-
-
-
-
-
-</pre>
 <div class="content">
+    <div class="green-box">
+        <div class="image">
+            <img src="img\pexels-alina-matveycheva-12081010.jpg" alt="Image Description">
+        </div>
+        <div class="info">
+            <h2 style="text-align: center; font-size: 2rem;">Food Name</h2>
+            <p style="position: relative; left:10%; font-weight:bold;">Food Calories</p>
+            <p>This is a caption.</p>
+            <p>Lorem ipsum paragraph.</p>
+            <p>Recommended for people...</p>
+            <div class="price-tag" style="margin-left:250px">₹Price</div>
+            <button class="button" ><span style="font-weight: bolder; font-size: large;">Add to Plate</span></button>
+        </div>
+    </div>
+    <% if(locals.result){%>
+    <% if (result && result.length > 0) { %>
+        <% result.forEach(food => { %>
+            <div class="green-box">
+                <div class="image">
+                    <img src="<%= food.food_image %>" alt="<%= food.food_name %>">
+                </div>
+                <div class="info">
+                    <h2 style="text-align: center; font-size: 2rem;"><%= food.food_name %></h2>
+                    <p style="position: relative; left:10%;font-size: 1rem; "><span style="font-weight:bold;">Food Type: </span><%= food.food_type %></p>
+                    <p style="position: relative; left:10%;font-size: 1rem; "><span style="font-weight:bold;">Description: </span><%= food.description %></p>
+                    <p style="position: relative; left:10%;font-size: 1rem; "><span style="font-weight:bold;">Food Calories: </span><%= food.calories %></p>
+                    <p style="position: relative; left:10%;font-size: 1rem; "><span style="font-weight:bold;">Recommended for : </span><%= food.food_tag %></p>
+                    <div class="price-tag" style="margin-left:250px">₹<%= food.price %></div>
+                    <form method="post" action="menu1">
+                        <input type="hidden" name="food_id" value= "<%= food.food_id %>">
+                        <!-- <input type="hidden" name="user_id" value= "<%= %>"> -->
+                        <button class="button" ><span style="font-weight: bolder; font-size: large;">Add to Plate</button>
+                    </form>
+                    
+                </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <p>No results found.</p>
+    <% } %>
+    <% } %>
     <h2>Too Hungry?</h2>
     <div class="container" id="no1">
     <div class="box">
@@ -212,9 +329,13 @@
         <h2>Garlic boils with caffeine</h2>
         <p style="font-weight:bold;">A slice of garlic bread with a half boil served with expresso</p>
         <div class="price-tag">₹120.0</div>
-        
     </div>
 </div>
+
+
+
+
+
 
 
 <div class="container" id="no1">
@@ -226,24 +347,186 @@
         <div class="price-tag">₹70.0</div>
         
     </div>
+
     <div class="box">
         <div class="photo">
-        <img style="height: 250px;width: 250px;padding-left: 43px;" src=" img\pexels-valeria-boltneva-10038681.jpg"></div>
-        <h2>Steamed potato cake</h2>
-        <p style="font-weight:bold;">Juicy potato steamed with mustard sauce with greens</p>
-        <div class="price-tag">₹90.0</div>
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-monstera-production-5876741.jpg"></div>
+        <h2>Steamed Indian Chicken</h2>
+        <p style="font-weight:bold;">Steamed Indian chicken seasoned with rock salt and pepper stuffed with herbs</p>
+        <div class="price-tag">₹360.0</div>
         
     </div>
+    
     <div class="box">
         <div class="photo">
-        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-alina-matveycheva-12081010.jpg"></div>
-        <h2>Garlic boils with caffeine</h2>
-        <p style="font-weight:bold;">A slice of garlic bread with a half boil served with expresso</p>
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-nonik-yench-8799602.jpg"></div>
+        <h2>Chinese Chicken 65</h2>
+        <p style="font-weight:bold;">Hot Indian style chicken 65 fried and dipped in chinese sauce</p>
+        <div class="price-tag">₹150.0</div>
+    </div>
+
+  
+    
+    
+</div>
+
+
+
+
+<div class="container" id="starters">
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-alleksana-4224304.jpg"></div>
+        <h2>Hyderabadi Chicken Biryani</h2>
+        <p style="font-weight:bold;">Hyderabadi Chicken Biryani where chicken and rice are layered ,creating a one-pot meal..</p>
+        <div class="price-tag">₹130.0</div>
+        
+    </div>
+
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-taha-samet-arslan-7627407.jpg"></div>
+        <h2>Grilled Salmon with Quinoa</h2>
+        <p style="font-weight:bold;">Omega-3-rich salmon grilled to perfection,served with quinoa offering a high-protein and nutrient-dense meal.</p>
+        <div class="price-tag">₹150.0</div></div>
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src=" img\tamilnadu-vazhai-ilai-meals-sapadu.jpg"></div>
+        <h2>TamilNadu Full Meals</h2>
+        <p style="font-weight:bold;">A Wholesome lunch with rice,sambar,rasam,curd,payasam,banana</p>
         <div class="price-tag">₹120.0</div>
         
     </div>
+    
 </div>
+
+
+
+<div class="container" id="desserts">
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-ralitsa-racheva-11136329.jpg"></div>
+        <h2>Sugarless Rasberry milkshake</h2>
+        <p style="font-weight:bold;">Freshly imported rasberries blended with vegan milk and zero sugar.</p>
+        <div class="price-tag">₹90.0</div>
+        
+    </div>
+
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-polina-tankilevitch-4110008.jpg"></div>
+        <h2>Avocado Chocolate Mousse</h2>
+        <p style="font-weight:bold;">Creamy and rich chocolate mousse made with ripe avocados offering a dessert without sugar.</p>
+        <div class="price-tag">₹70.0</div></div>
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-charlotte-may-5947041.jpg"></div>
+        <h2>Chia Seed Pudding</h2>
+        <p style="font-weight:bold;">A sugar-free dessert made with chia seeds soaked in almond milk, topped with fresh berries, providing a delicious and guilt-free sweet treat.</p>
+        <div class="price-tag">₹120.0</div>
+        
+    </div>
+    
+    
 </div>
+
+
+<div class="container" id="beverages">
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-iconest-4731076.jpg"></div>
+        <h2>Hibiscus Iced Tea</h2>
+        <p style="font-weight:bold;">A naturally sweetened beverage made from hibiscus petals, served over ice and sugar-free alternative to traditional iced teas..</p>
+        <div class="price-tag">₹60.0</div>
+        
+    </div>
+
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-jonathan-borba-2983100.jpg"></div>
+        <h2>Diet Coke</h2>
+        <p style="font-weight:bold;">Diet Coke is a sugar-free carbonated beverage offering a calorie-free refreshment option..</p>
+        <div class="price-tag">₹25.0</div></div>
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-shameel-mukkath-5817517.jpg"></div>
+        <h2>Cucumber Mint Infused Water</h2>
+        <p style="font-weight:bold;">A hydrating and sugar-free drink, cucumber and mint slices added to water for a crisp and refreshing flavor without added sugars..</p>
+        <div class="price-tag">₹120.0</div>
+        
+    </div>
+
+</div>
+
+
+<div class="container" id="protein">
+
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-taha-samet-arslan-7627407.jpg"></div>
+        <h2>Grilled Salmon with Quinoa</h2>
+        <p style="font-weight:bold;">Omega-3-rich salmon grilled to perfection,served with quinoa offering a high-protein and nutrient-dense meal.</p>
+        <div class="price-tag">₹150.0</div></div>
+
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-monstera-production-5876741.jpg"></div>
+        <h2>Steamed Indian Chicken</h2>
+        <p style="font-weight:bold;">Steamed Indian chicken seasoned with rock salt and pepper stuffed with herbs</p>
+        <div class="price-tag">₹360.0</div>
+        
+    </div>
+    <div class="box">
+        <div class="photo">
+        <img style="height: 250px;width: 250px;padding-left: 43px;" src="img\pexels-jane-doan-824635.jpg"></div>
+        <h2>Avocado Toast</h2>
+        <p style="font-weight:bold;">Whole-grain toast topped with creamy avocado slices and a boiled agg for healthy breakfast.</p>
+        <div class="price-tag">₹70.0</div>
+        
+    </div>
+
+</div>
+
+
+
+
+<div id="container">
+    <div id="overlay">
+        <div id="innerBox">
+            <span id="closeButton" style="color:red;font-size: 1rem;" onclick="toggleBox()">&#10006;</span>
+            <h2 style="font-size: 2rem;">Let us know!</h2>
+            <form id="formContainer" onsubmit="return submitForm()" method="post" action="review">
+                <label style="font-weight: 600;font-size: 1.5rem;"  for="food_name">Food Name:</label>
+                <input type="text" id="weight" name="food_name" >
+
+                <label style="font-weight: 600;font-size: 1.5rem;" for="food_type">Food Type:</label>
+                <input type="text" id="height" name="food_type" >
+
+                <label style="font-weight: 600;font-size: 1.5rem;" for="food_star">How good was the food?</label>
+                <select id="diets" name="food_star">
+                    <option></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+
+                <label style="font-weight: 600;font-size: 1.5rem;" for="review">Any issues? <br>(Type below)</label>
+                <textarea id="healthIssues" name="review" rows="4" ></textarea>
+
+                <button style="font-size: 1rem;
+                font-family:sans-serif; 
+                color: hsl(85, 4%, 15%);
+                font-weight: bold;"    id="submitButton" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 </body>
 <script>
@@ -257,5 +540,16 @@
             });
         });
     });
+
+    function toggleBox() {
+            const container = document.getElementById("container");
+            const isHidden = container.style.left === "-100%";
+    
+            if (isHidden) {
+                container.style.left = "50%";
+            } else {
+                container.style.left = "-100%";
+            }
+        }
 </script>
 </html>

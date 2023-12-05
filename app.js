@@ -29,8 +29,8 @@ app.set('view engine','ejs');
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'Fit',
-    password: 'postgres',
+    database: 'fitfuel',
+    password: 'Jeyanth@2004',
     port: 5432,
   });
 
@@ -59,6 +59,14 @@ app.get("/login",(req,res)=>{
 app.get("/signin",(req,res)=>{
     res.render("signin");
 })
+
+
+app.get("/menu",(req,res)=>{
+  res.render("menu");
+  console.log(req.session.userId);
+})
+
+
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -140,6 +148,7 @@ app.post("/home",async (req,res)=>{
       if(bmi_user){
         let bmi = bmi_user.bmi;
         let status = bmi_user.status;
+        req.session.Status =  bmi_user.status;
         let required_weight = bmi_user.required_weight;
         res.render("home",{user_id:user_id,username:name,weight:weight,height:height,bmi:bmi,status:status});
 
@@ -151,6 +160,56 @@ app.post("/home",async (req,res)=>{
     }
 
 })
+
+
+
+
+app.post('/menu', async (req, res) => {
+  try {
+    
+
+    const { regex,food_type } = req.body;
+    req.session.regex = regex;
+    const queryString = 'SELECT food_id,food_name, food_image, food_type, food_tag, description, calories, price FROM food WHERE keyword LIKE $1 and food_tag=$2';
+    const queryValues = [`%${regex}%`,req.session.Status];
+
+    const result = await pool.query(queryString, queryValues);
+    console.log(result.rows);
+
+    // Render the 'menu' template with the query result
+   res.render('./menu', { result: result.rows }); 
+  } catch (error) {
+    console.error('Error executing query:', error);
+    // Handle the error
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
+});
+
+app.post('/menu1', async (req, res) => {
+  try {
+      const { food_id } = req.body;
+      const queryString = `
+          INSERT INTO order_table (user_id, food_ids, order_time)
+          VALUES ($1, ARRAY[$2::integer], NOW())
+          ON CONFLICT (user_id)
+          DO UPDATE
+          SET food_ids = array_append(order_table.food_ids, $2::integer), order_time = NOW();
+      `;
+      const queryValues = [req.session.userId, food_id];
+
+      await pool.query(queryString, queryValues);
+
+      // Fetch the updated menu data
+      
+      const updatedResult = await pool.query('SELECT food_id, food_name, food_image, food_type, food_tag, description, calories, price FROM food WHERE food_tag=$1 and keyword like $2', [req.session.Status,`%${req.session.regex}%`]);
+
+      res.render('./menu', { result: updatedResult.rows });
+  } catch (error) {
+      console.error('Error executing query:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 app.get("/manager",async (req,res)=>{
   
@@ -306,6 +365,40 @@ app.post("/submit_food",async(req,res)=>{
 app.get("/add",(req,res)=>{
   res.render("add");
 })
+
+app.post("/review", async(req,res)=>{
+  
+  try {
+    
+    const {food_name,food_type,food_star,review}=req.body;
+    const queryString = `
+      INSERT INTO review (user_id, food_name, food_type,food_star,review,time)
+      VALUES ($1, $2, $3, $4, $5,now())
+      ON CONFLICT (user_id)
+      DO UPDATE
+      SET food_name= $2,food_type=$3,food_star=$4,review=$5,time=now();
+    `;
+    const queryValues = [req.session.userId, food_name ,food_type,food_star,review];
+
+    const result = await pool.query(queryString, queryValues);
+    console.log("successfully updated");
+
+    // Render the 'menu' template with the query result
+   res.render('./menu'); 
+  } catch (error) {
+    console.error('Error executing query:', error);
+    // Handle the error
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
+
+
+})
+
+
+
+
+
+
 app.listen(3000,()=>{
     console.log("3000");
 })
