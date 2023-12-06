@@ -26,23 +26,23 @@ app.use(express.static("public"));
 app.set('view engine','ejs');
 
 //postgresql configuration
-const pool = new Pool({
+/* const pool = new Pool({
     user: 'Aravind',
     host: 'financetrackergda.postgres.database.azure.com',
     database: 'Fitfuel',
     password: 'Arvi@194',
     port: 5432,
     ssl:true
-  });
+  }); */
 
-  /* const pool = new Pool({
+  const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'fitfuel',
     password: 'Jeyanth@2004',
     port: 5432,
   });
- */
+
 
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -144,7 +144,12 @@ app.post("/home",async (req,res)=>{
     let health_issues = req.body.healthIssues;
     let user_id = req.session.userId
     console.log(req.session.userId);
-    const bmi_insert = "INSERT INTO user_profile(user_id,user_name,weight,height,health_issues,diet) values($1,$2,$3,$4,$5,$6)";
+    const bmi_insert = `
+      INSERT INTO user_profile(user_id, user_name, weight, height, health_issues, diet)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      ON CONFLICT (user_id) DO UPDATE
+      SET user_name = $2, weight = $3, height = $4, health_issues = $5, diet = $6 returning *;
+    `;
     try{
       await pool.query(bmi_insert,[user_id,name,weight,height,health_issues,diet]);
     }catch(error){
