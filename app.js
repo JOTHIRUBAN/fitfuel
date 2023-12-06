@@ -467,7 +467,8 @@ app.post('/placeOrder', async (req, res) => {
       console.log(foodIds);
       const insertQuery = 'INSERT INTO orders (food_ids,user_id) VALUES ($1,$2)';
           await pool.query(insertQuery, [foodIds,req.session.userId]);
-
+    const delete_query = `DELETE FROM order_table WHERE user_id=$1`;
+    await pool.query(delete_query, [req.session.userId]);
       res.json({ success: true, message: 'Order placed successfully' });
   } catch (error) {
       console.error(error);
