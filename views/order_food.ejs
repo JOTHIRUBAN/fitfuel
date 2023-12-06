@@ -105,7 +105,7 @@
     <footer>
         Copyrights © FitFuel System
     </footer>
-
+    </body>
     <script>
         
         console.log("Script start");
@@ -124,10 +124,9 @@
             foodDetails.forEach(food => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${food.name}</td>
-                    <td>₹${food.price.toFixed(2)}</td>
+                    <td>${food.food_name}</td>
+                    <td>₹${food.price}</td>
                     <td>
-                        <input type="checkbox" onchange="updateTotalPrice(${food.food_id}, this)">
                         <button class="remove-btn" onclick="removeFood(${food.food_id})">X</button>
                     </td>
                 `;
@@ -157,7 +156,7 @@
 
             // Update the total price on the page
             const totalPriceElement = document.getElementById('totalPrice');
-            totalPriceElement.textContent = total.toFixed(2);
+            totalPriceElement.textContent = total;
 
             // If a checkbox is provided, update its state
             if (checkbox) {
@@ -178,5 +177,5 @@
         }
     </script>
 
-</body>
+
 </html>
