@@ -27,11 +27,12 @@ app.set('view engine','ejs');
 
 //postgresql configuration
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'fitfuel',
-    password: 'Jeyanth@2004',
+    user: 'Aravind',
+    host: 'financetrackergda.postgres.database.azure.com',
+    database: 'Fitfuel',
+    password: 'Arvi@194',
     port: 5432,
+    ssl:true
   });
 
   const storage = multer.diskStorage({
@@ -394,7 +395,59 @@ app.post("/review", async(req,res)=>{
 
 })
 
+let selectedFoodIds = [];
+app.get("/order_food",async (req,res)=>{
+  
+  const select_query = `SELECT food_ids from order_table where user_id = $1`;
+  try{
+    const result = await pool.query(select_query,[req.session.userId]);
+    const foodIdsArray = result.rows.map(row => row.food_ids);
+    selectedFoodIds = foodIdsArray.flat();
+    console.log(selectedFoodIds);
+    res.render("order_food");
 
+  }catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
+
+app.get('/getFoodDetails', async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT food_id, food_name, price FROM food WHERE food_id = ANY($1::int[])`,
+      [selectedFoodIds]
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Handle removing a food item
+app.post('/removeFood', (req, res) => {
+  const { foodId } = req.body;
+
+  // Remove the selected food ID from the array
+  selectedFoodIds = selectedFoodIds.filter((food_id) => food_id !== foodId);
+
+  res.json({ success: true });
+});
+
+// Calculate total price based on selected food items
+app.get('/getTotalPrice', async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT COALESCE(SUM(price), 0) as total FROM food WHERE food_id = ANY($1::int[])`,
+      [selectedFoodIds]
+    );
+    res.json({ total: result.rows[0].total });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 
