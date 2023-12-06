@@ -412,19 +412,24 @@ app.get("/order_food",async (req,res)=>{
   }
 })
 
+let foodArray = [];
+
 app.get('/getFoodDetails', async (req, res) => {
   try {
-    const result = await pool.query(
-      `SELECT food_id, food_name, price FROM food WHERE food_id = ANY($1::int[])`,
-      [selectedFoodIds]
-    );
-    res.json(result.rows);
+    for (const food_id of selectedFoodIds) {
+      const result = await pool.query(
+        `SELECT food_id, food_name, price FROM food WHERE food_id = $1`,
+        [food_id]
+      );
+      foodArray.push(result.rows[0]);
+    }
+
+    res.json(foodArray);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 // Handle removing a food item
 app.post('/removeFood', (req, res) => {
   const { foodId } = req.body;
@@ -438,11 +443,16 @@ app.post('/removeFood', (req, res) => {
 // Calculate total price based on selected food items
 app.get('/getTotalPrice', async (req, res) => {
   try {
-    const result = await pool.query(
-      `SELECT COALESCE(SUM(price), 0) as total FROM food WHERE food_id = ANY($1::int[])`,
-      [selectedFoodIds]
-    );
-    res.json({ total: result.rows[0].total });
+    let total=0;
+    for (const food_id of selectedFoodIds) {
+      const result = await pool.query(
+        `SELECT price FROM food WHERE food_id = $1`,
+        [food_id]
+      );
+      
+      total+=Number(result.rows[0].price);
+    }console.log(total)
+    res.json({ total: total });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

@@ -123,13 +123,16 @@
             const foodTableBody = document.querySelector('#foodTable tbody');
             foodDetails.forEach(food => {
                 const row = document.createElement('tr');
+                
                 row.innerHTML = `
-                    <td>${food.food_name}</td>
-                    <td>₹${food.price}</td>
-                    <td>
-                        <button class="remove-btn" onclick="removeFood(${food.food_id})">X</button>
-                    </td>
-                `;
+                        <td>${food.food_name}</td>
+                        <td>₹${food.price}</td>
+                        <td>
+                            <button class="remove-btn" onclick="removeFood(${food.food_id})">X</button>
+                        </td>
+                            `;
+// Add the data-food-id attribute to identify the row
+                row.setAttribute('data-food-id', food.food_id);
                 foodTableBody.appendChild(row);
             });
 
@@ -174,6 +177,11 @@
         async function removeFood(foodId) {
             // Call the updateTotalPrice function with the removed food ID
             await updateTotalPrice(foodId);
+            const rowToRemove = document.querySelector(`#foodTable tbody tr[data-food-id="${foodId}"]`);
+            rowToRemove.parentNode.removeChild(rowToRemove);
+                
+            // After removing the food, update the total price again
+            updateTotalPrice();
         }
     </script>
 
