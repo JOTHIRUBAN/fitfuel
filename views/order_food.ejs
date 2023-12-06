@@ -169,9 +169,29 @@
 
         // Function to proceed to the payment page
         function proceedToPayment() {
-            alert('Redirecting to payment page. Total amount: ₹' + document.getElementById('totalPrice').textContent);
-            // Implement your logic to redirect to the payment page here
+            // Get all selected food IDs
+            const selectedFoodIds = Array.from(document.querySelectorAll('#foodTable tbody tr')).map(row => row.getAttribute('data-food-id'));
+        
+            // Send the selected food IDs to the server
+            fetch('/placeOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ foodIds: selectedFoodIds }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server if needed
+                console.log(data);
+                // Implement your logic to redirect to the payment page here
+                alert('Redirecting to payment page. Total amount: ₹' + document.getElementById('totalPrice').textContent);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
+        
 
         // Function to remove a food item
         async function removeFood(foodId) {

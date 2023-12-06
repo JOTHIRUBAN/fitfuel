@@ -459,6 +459,21 @@ app.get('/getTotalPrice', async (req, res) => {
   }
 });
 
+app.post('/placeOrder', async (req, res) => {
+  const { foodIds } = req.body;
+
+  try {
+      // Insert the selected food IDs into the ordering table
+      console.log(foodIds);
+      const insertQuery = 'INSERT INTO orders (food_ids,user_id) VALUES ($1,$2)';
+          await pool.query(insertQuery, [foodIds,req.session.userId]);
+
+      res.json({ success: true, message: 'Order placed successfully' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 
