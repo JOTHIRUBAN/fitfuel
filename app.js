@@ -35,6 +35,15 @@ const pool = new Pool({
     ssl:true
   });
 
+  /* const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'fitfuel',
+    password: 'Jeyanth@2004',
+    port: 5432,
+  });
+ */
+
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'public/img/');
