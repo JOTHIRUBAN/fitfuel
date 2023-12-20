@@ -26,23 +26,23 @@ app.use(express.static("public"));
 app.set('view engine','ejs');
 
 //postgresql configuration
-/* const pool = new Pool({
+const pool = new Pool({
     user: 'Aravind',
     host: 'financetrackergda.postgres.database.azure.com',
     database: 'Fitfuel',
     password: 'Arvi@194',
     port: 5432,
     ssl:true
-  }); */
+  });
 
-  const pool = new Pool({
+ /*  const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'fitfuel',
     password: 'Jeyanth@2004',
     port: 5432,
   });
-
+ */
 
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -492,7 +492,7 @@ app.post('/placeOrder', async (req, res) => {
 
 
 
-app.listen(3000,()=>{
+app.listen(process.env.PORT||3000,()=>{
     console.log("3000");
 })
 
