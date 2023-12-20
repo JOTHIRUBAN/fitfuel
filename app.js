@@ -37,7 +37,7 @@ app.set('view engine','ejs');
 
   const pool = new Pool({
     user: 'postgres',
-    host: 'localhost',
+    host: '192.168.137.1',
     database: 'fitfuel',
     password: 'Jeyanth@2004',
     port: 5432,
