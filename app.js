@@ -504,8 +504,21 @@ app.post('/placeOrder', async (req, res) => {
 });
 
 app.get('/customer_review', async(req,res)=>{
+  try {
+    const quer=`select "user".user_name,review.food_name,review.food_type,review.review,review.food_star,review.time from review inner join "user" using(user_id); 
+    `;
+    const q = await pool.query(quer);
   
+    const rows = q.rows;
+    console.log(rows);
+    res.render("query",{row:rows});
+    
+  } catch (error) {
+    console.error('Error fetching food log:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
+
 
 
 app.listen(process.env.PORT||3000,()=>{
