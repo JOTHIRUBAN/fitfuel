@@ -165,8 +165,8 @@ app.post("/home",async (req,res)=>{
       const bmi_user = bmi_result.rows[0]
       console.log(bmi_result.rowCount);
       if(bmi_user){
-        let bmi = bmi_user.bmi;
-        let status =  Math.round(bmi_user.status);
+        let bmi = Math.round(bmi_user.bmi);
+        let status = bmi_user.status;
         req.session.Status =  bmi_user.status;
         let required_weight = bmi_user.required_weight;
         let message;
@@ -503,6 +503,9 @@ app.post('/placeOrder', async (req, res) => {
   }
 });
 
+app.get('/customer_review', async(req,res)=>{
+  
+});
 
 
 app.listen(process.env.PORT||3000,()=>{
