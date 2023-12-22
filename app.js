@@ -69,6 +69,9 @@ app.get("/login",(req,res)=>{
 app.get("/signin",(req,res)=>{
     res.render("signin");
 })
+app.get("/home",(req,res)=>{
+    res.render("home");
+})
 
 
 app.get("/menu",(req,res)=>{
@@ -144,28 +147,38 @@ app.post("/home",async (req,res)=>{
     let health_issues = req.body.healthIssues;
     let user_id = req.session.userId
     console.log(req.session.userId);
-    const bmi_insert = `
+   
+    try{
+      const bmi_insert = `
       INSERT INTO user_profile(user_id, user_name, weight, height, health_issues, diet)
       VALUES ($1, $2, $3, $4, $5, $6)
       ON CONFLICT (user_id) DO UPDATE
       SET user_name = $2, weight = $3, height = $4, health_issues = $5, diet = $6 returning *;
     `;
-    try{
       await pool.query(bmi_insert,[user_id,name,weight,height,health_issues,diet]);
     }catch(error){
-      res.status(500).json({ message: 'unable to insert the height and weight' });
+      res.status(500).json({ message: 'unable to insert the weigt and weight' });
     }
-    const bmi_select = "SELECT * FROM user_profile where user_id=$1";
     try{
+      const bmi_select = "SELECT * FROM user_profile where user_id=$1";
       const bmi_result = await pool.query(bmi_select,[user_id]);
       const bmi_user = bmi_result.rows[0]
       console.log(bmi_result.rowCount);
       if(bmi_user){
         let bmi = bmi_user.bmi;
-        let status = bmi_user.status;
+        let status =  Math.round(bmi_user.status);
         req.session.Status =  bmi_user.status;
         let required_weight = bmi_user.required_weight;
-        res.render("home",{user_id:user_id,username:name,weight:weight,height:height,bmi:bmi,status:status});
+        let message;
+        if(status=='Normal'){
+            message = "You are fit add fuel to stay fit";
+        }
+        else if(status=='Overweight'){
+          message=`You need to lose ${Math.round(required_weight)} Kgs`;
+        }else {
+          message=`You need to gain ${Math.round(required_weight)} Kgs`;
+        }
+        res.render("home",{user_id:user_id,username:name,message:message,weight:weight,height:height,bmi:bmi,status:status});
 
       }else{
         res.status(500).json({ message: 'couldnt get' });

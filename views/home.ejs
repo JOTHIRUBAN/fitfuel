@@ -429,7 +429,7 @@
         </div>
         <div id="bmiContainer">
             <div style="color: rgb(170,253,53); font-size: 2.5rem;font-weight: 200;">BMI: <%= locals.bmi ? locals.bmi : "default_bmi" %></div><br>
-            <div style="color: rgb(128, 130, 128); font-size: 2.5rem">Hey user, this is a message for you!</div><br>
+            <div style="color: rgb(128, 130, 128); font-size: 2.5rem"> <%= locals.message ? locals.message : "0kgs" %>  </div><br>
             <div style="color: rgb(130, 128, 128); font-size: 2.5rem">status:<%= locals.status ? locals.status : "default_weight" %></div>
         </div>
     </div>

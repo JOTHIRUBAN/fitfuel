@@ -58,12 +58,14 @@
             box-sizing: border-box;
             border-radius: 5px;
             height: 500px;
+            transition: all 200ms ease-in;
         }
 
         .box:hover{
             background-color:rgb(170,253,53);
-
         }
+
+
 
         
         .search-bar {
@@ -255,7 +257,7 @@
 <body>
 
 <div class="sidebar">
-    <a href="home.html">
+    <a href="home">
         <h1 style="text-align: center;color:hsl(85, 4%, 10%);">FitFuel</h1><br></a>
     <a href="#no1">Starters</a><br>
     <a href="#starters">Main Course</a><br>
@@ -278,7 +280,7 @@
 
 
 <div class="content">
-    <div class="green-box">
+    <!-- <div class="green-box">
         <div class="image">
             <img src="img\pexels-alina-matveycheva-12081010.jpg" alt="Image Description">
         </div>
@@ -291,7 +293,7 @@
             <div class="price-tag" style="margin-left:250px">₹Price</div>
             <button class="button" ><span style="font-weight: bolder; font-size: large;">Add to Plate</span></button>
         </div>
-    </div>
+    </div> -->
     <% if(locals.result){%>
     <% if (result && result.length > 0) { %>
         <% result.forEach(food => { %>
