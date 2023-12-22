@@ -30,7 +30,7 @@ const pool = new Pool({
     user: 'Aravind',
     host: 'financetrackergda.postgres.database.azure.com',
     database: 'Fitfuel',
-    password: 'Arvi@194',
+   // password: 'Arvi@194',
     port: 5432,
     ssl:true
   });
