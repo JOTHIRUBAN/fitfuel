@@ -1,0 +1,129 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ea; /* Light green background */
+        }
+
+        header, footer {
+            background-color: #8cc084; /* Header and footer background color */
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+
+        main {
+            margin: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        footer {
+           
+            bottom: 0;
+            width: 100%;
+        }
+
+        .logout-icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Supplier Form</h1>
+    </header>
+
+    <div>
+      <span class="logout-icon" onclick="logout()">Logout &#x21a9;</span>
+    </div>
+
+    <main>
+      <form action="supplier_process" method="post" enctype="multipart/form-data">
+
+        <label for="foodId">Food ID:</label>
+        <input type="text" id="foodId" name="foodId" required>
+
+            <label for="foodName">Food Name:</label>
+            <input type="text" id="foodName" name="foodName" required>
+
+            <label for="foodImage">Food Image:</label>
+            <input type="file" id="foodImage" name="foodImage" accept="image/*">
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" required>
+
+            <label for="foodType">Food Type:</label>
+            <input type="text" id="foodType" name="foodType" required>
+
+            <label for="calories">Calories:</label>
+            <input type="number" id="calories" name="calories" required>
+
+            <label for="foodTag">Food Tag:</label>
+            <input type="text" id="foodTag" name="foodTag" required>
+
+            <label for="keyword">Keyword:</label>
+            <input type="text" id="keyword" name="keyword" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Your Company</p>
+    </footer>
+
+    <script>
+      function logout() {
+        // Redirect to the login page
+        window.location.href = 'supplier_login';
+      }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-weight: 500;
+            font-family: 'poppins', sans-serif;
+            background-color: #f1f8e9; /* Light green background */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure full height of the viewport */
+        }
+
+        header {
+            background-color: #689f38; /* Dark green header */
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        main {
+            flex: 1; /* Allow main content to grow and take remaining space */
+            padding: 20px;
+            padding-bottom: 15px;
+            margin-bottom: 80px; /* Adjusted margin to accommodate the footer */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50; /* Dark green header cells */
+            color: white;
+        }
+
+        .total-price {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .proceed-btn {
+            background-color: #4caf50; /* Dark green button */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 660px;
+            margin-top: 100px;
+            color: black;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+
+        .proceed-btn:hover {
+            background-color: #689f38; /* Light green on hover */
+            padding: 10px;
+        }
+
+        .remove-btn {
+            background-color: transparent;
+            color: red;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #689f38; /* Dark green footer */
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-weight: bold;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        Orders
+    </header>
+    <main>
+        <table id="foodTable">
+            <thead>
+                <tr>
+                    <th>Food Name</th>
+                    <th>Food Price</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be dynamically added here using JavaScript -->
+            </tbody>
+        </table>
+        <br>
+        <p class="total-price">Total Price: <span id="totalPrice">0.00</span></p>
+
+        <button class="proceed-btn" onclick="proceedToPayment()">Proceed to Payment</button>
+    </main>
+
+    <footer>
+        Copyrights © FitFuel System
+    </footer>
+    <script>
+        // Your existing script here
+    </script>
+</body>
+
+<script>
+        
+    console.log("Script start");
+
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log("DOMContentLoaded event fired");
+        hel();
+    });
+    async function hel() {
+        // Fetch food details from the server
+        const response = await fetch('/getFoodDetails');
+        const foodDetails = await response.json();
+        console.log(foodDetails);
+        // Populate the table with food details
+        const foodTableBody = document.querySelector('#foodTable tbody');
+        foodDetails.forEach(food => {
+            const row = document.createElement('tr');
+            
+            row.innerHTML = `
+                    <td>${food.food_name}</td>
+                    <td>₹${food.price}</td>
+                    <td>
+                        <button class="remove-btn" onclick="removeFood(${food.food_id})">X</button>
+                    </td>
+                        `;
+// Add the data-food-id attribute to identify the row
+            row.setAttribute('data-food-id', food.food_id);
+            foodTableBody.appendChild(row);
+        });
+
+        // Calculate and display the initial total price
+        updateTotalPrice();
+    };
+
+    // Function to update the total price based on selected items
+    async function updateTotalPrice(removedFoodId, checkbox) {
+        // If a food item is removed, send a request to the server to update the selected items
+        if (removedFoodId) {
+            await fetch('/removeFood', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ foodId: removedFoodId }),
+            });
+        }
+
+        // Fetch the updated total price from the server
+        const response = await fetch('/getTotalPrice');
+        const { total } = await response.json();
+
+        // Update the total price on the page
+        const totalPriceElement = document.getElementById('totalPrice');
+        totalPriceElement.textContent = total;
+
+        // If a checkbox is provided, update its state
+        if (checkbox) {
+            checkbox.checked ? checkbox.parentNode.classList.add('selected') : checkbox.parentNode.classList.remove('selected');
+        }
+    }
+
+    // Function to proceed to the payment page
+    function proceedToPayment() {
+        // Get all selected food IDs
+        const selectedFoodIds = Array.from(document.querySelectorAll('#foodTable tbody tr')).map(row => row.getAttribute('data-food-id'));
+    
+        // Send the selected food IDs to the server
+        fetch('/placeOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ foodIds: selectedFoodIds }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the server if needed
+            console.log(data);
+            // Implement your logic to redirect to the payment page here
+            alert('Redirecting to payment page. Total amount: ₹' + document.getElementById('totalPrice').textContent);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    
+
+    // Function to remove a food item
+    async function removeFood(foodId) {
+        // Call the updateTotalPrice function with the removed food ID
+        await updateTotalPrice(foodId);
+        const rowToRemove = document.querySelector(`#foodTable tbody tr[data-food-id="${foodId}"]`);
+        rowToRemove.parentNode.removeChild(rowToRemove);
+            
+        // After removing the food, update the total price again
+        updateTotalPrice();
+    }
+</script>
+
+</html>

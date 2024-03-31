@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Ordering Manager - Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #d4f0e3; /* Light green background */
+    }
+
+    header {
+      background-color: #4caf50; /* Darker green header */
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer {
+      background-color: #4caf50; /* Darker green footer */
+      color: white;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .logout-icon {
+      float: right;
+      cursor: pointer;
+    }
+
+ 
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 8px;
+        background-color: #4caf50; /* Green color */
+        color: #fff; /* White text color */
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .button:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+
+    #show_user {
+        display: none;
+        margin-top: 10px;
+    }
+
+    .button:hover + #show_user {
+        display: block;
+    }
+    #form {
+        text-align: center;
+    }
+
+    form {
+        display: inline-block;
+    }
+
+     input[type="submit"] {
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid #2ecc71; /* Green border color */
+        border-radius: 5px;
+        background-color: #2ecc71; /* Green background color */
+        color: #fff; /* White text color */
+        outline: none;
+    }
+    input[type="text"]{
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid #2ecc71; /* Green border color */
+        border-radius: 5px;
+        /* Green background color */
+       
+        outline: none;
+    }
+
+    input[type="submit"] {
+        cursor: pointer;
+    }
+
+    input[type="text"]:focus, input[type="submit"]:focus {
+        border: 1px solid #27ae60; /* Dark green border color on focus */
+    }
+      
+    
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <span>Welcome, <%= manager%></span>
+    </div>
+    <div>
+      <span class="logout-icon" onclick="logout()">Logout &#x21a9;</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Manager's home page content goes here -->
+    <h1>Food Ordering Manager Home</h1>
+    <p>This is your manager home page. You can see everything that happens in the system here.</p>
+
+    <!-- Buttons with hover effect -->
+    <div>
+      <button class="button" onclick="fetchFoodLogs()">Customer Reviews</button>
+       <button class="button" onclick="fetchFoodLog()">Food Log</button>
+
+    </div>
+
+
+      <!-- Add more buttons as needed -->
+
+    </div>
+    <div id="form"><form action="query" method="post">
+        <input type="text" name = "query">
+        <input type="submit">
+    </form></div>
+  </div>
+
+  <footer>
+    Food Ordering System &copy; 2023
+  </footer>
+
+  <script>
+    function logout() {
+      // Redirect to the login page
+      window.location.href = 'manager';
+    }
+    function fetchFoodLog(){
+      window.location.href = 'food_log';
+    }
+    function fetchFoodLogs(){
+      window.location.href = 'customer_review';
+    }
+  </script>
+</body>
+</html>

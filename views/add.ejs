@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-weight:500;
+            font-family: 'poppins', sans-serif;
+        }
+
+        header, footer {
+            background-color:rgb(170,253,53);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-weight: bold;
+            color: black;
+
+
+        }
+
+        main {
+            padding: 20px;
+            padding-bottom: 175px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        .total-price {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .proceed-btn {
+            background-color: orange;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;    
+            margin-left: 660px;
+            margin-top: 100px;
+            color: black;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+
+
+        }
+
+        .proceed-btn:hover {
+            background-color:rgb(170,253,53) ;
+            padding: 10px;
+
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        Orders
+    </header>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Food Name</th>
+                    <th>Food Price</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add your table rows here -->
+                <tr>
+                    <td>Burger</td>
+                    <td>₹100.00</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Pizza</td>
+                    <td>₹150.00</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        <br>
+        <p class="total-price">Total Price: 0.00</p>
+
+        <button class="proceed-btn">Proceed to Payment</button>
+    </main>
+
+    <footer>
+        Copyrights © FitFuel System
+    </footer>
+
+</body>
+</html>
